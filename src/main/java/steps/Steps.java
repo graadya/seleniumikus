@@ -16,17 +16,18 @@ import java.util.concurrent.TimeUnit;
 
 public class Steps {
 
-    protected  WebDriver driver;
+  protected  WebDriver driver;
 
     @Before
     public void setAll() {
       System.setProperty("webdriver.chrome.driver", "C:\\chromedrive\\chromedriver.exe");
-      WebDriver driver = new ChromeDriver();
+      driver = new ChromeDriver();
     }
 
-    @Пусть("открыт ресурс авито")
+
+    @Пусть("открыт ресурс на авито")
     public void openWebsite() {
-      driver.navigate().to("https://www.avito.ru/");
+      driver.navigate().to("https://www.avito.ru/moskva");
     }
 
     @И("в выпадающем списке категорий выбрана оргтехника")
@@ -50,11 +51,12 @@ public class Steps {
     }
     @И("нажата кнопка показать объявления")
     public void showSome(){
+      driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
       driver.findElement(By.xpath("//button[@data-marker='popup-location/save-button']")).click();
     }
     @Тогда("открылась страница результаты по запросу {word}")
     public void openPage(String text) {
-      WebElement search = driver.findElement(By.xpath("//*[@id='search']"));
+      WebElement search = driver.findElement(By.xpath("//*"));
       if (search != null && search.equals(text)) {
         System.out.println("Открыта другая страница");
         driver.close();
@@ -64,7 +66,7 @@ public class Steps {
     @И("активирован чекбокс только с фотографией")
     public void activeCheckBox() {
       driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-      WebElement checkbox = driver.findElement(By.xpath("//label[2]/span']"));
+      WebElement checkbox = driver.findElement(By.xpath("//label[2]/span"));
       checkbox.click();
     }
 
@@ -85,7 +87,7 @@ public class Steps {
     }
 
     @After
-    public void stop() {
+    public void Stop() {
       driver.close();
     }
 
